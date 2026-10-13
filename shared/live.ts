@@ -30,7 +30,9 @@ export const BASE_LIVE_CONFIG = {
   realtimeInputConfig: {
     automaticActivityDetection: {
       disabled: false,
-      startOfSpeechSensitivity: 'START_SENSITIVITY_HIGH' as StartSensitivity,
+      startOfSpeechSensitivity: 'START_SENSITIVITY_LOW' as StartSensitivity,
+      // Require sustained speech before committing a start; reduce brief noise triggers.
+      prefixPaddingMs: 250,
       // Learners pause mid-sentence; keep end-of-turn tolerant. Tune after real sessions.
       endOfSpeechSensitivity: 'END_SENSITIVITY_LOW' as EndSensitivity,
       silenceDurationMs: 800,

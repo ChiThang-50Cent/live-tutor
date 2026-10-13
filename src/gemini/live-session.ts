@@ -14,7 +14,7 @@ export interface SessionEvents {
 }
 
 const MAX_CONSECUTIVE_FAILURES = 4;
-const KICKOFF = 'The session has started. Greet me in one short sentence and ask your first question.';
+const KICKOFF = 'The session has started. Begin the selected practice mode using its opening instructions.';
 
 function base64ToBytes(base64: string): Uint8Array {
   const binary = atob(base64);
