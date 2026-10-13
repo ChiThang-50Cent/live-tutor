@@ -1,4 +1,7 @@
-import { EndSensitivity, Modality, StartSensitivity, type LiveConnectConfig } from '@google/genai';
+import type { EndSensitivity, Modality, StartSensitivity } from '@google/genai';
+
+// Type-only SDK import: the Worker bundles this file and must not pull in the SDK
+// (running it inside the request handler measured ~10 ms CPU, the whole Workers Free budget).
 
 export const LIVE_MODEL = 'gemini-3.8-live';
 
@@ -20,20 +23,20 @@ export function isMode(value: unknown): value is Mode {
  * `sessionResumption` is deliberately absent: it must stay client-controlled.
  */
 export const BASE_LIVE_CONFIG = {
-  responseModalities: [Modality.AUDIO],
+  responseModalities: ['AUDIO' as Modality],
   inputAudioTranscription: {},
   outputAudioTranscription: {},
   contextWindowCompression: { slidingWindow: {} },
   realtimeInputConfig: {
     automaticActivityDetection: {
       disabled: false,
-      startOfSpeechSensitivity: StartSensitivity.START_SENSITIVITY_HIGH,
+      startOfSpeechSensitivity: 'START_SENSITIVITY_HIGH' as StartSensitivity,
       // Learners pause mid-sentence; keep end-of-turn tolerant. Tune after real sessions.
-      endOfSpeechSensitivity: EndSensitivity.END_SENSITIVITY_LOW,
+      endOfSpeechSensitivity: 'END_SENSITIVITY_LOW' as EndSensitivity,
       silenceDurationMs: 800,
     },
   },
-} satisfies LiveConnectConfig;
+};
 
 export const INPUT_SAMPLE_RATE = 16_000;
 export const OUTPUT_SAMPLE_RATE = 24_000;
